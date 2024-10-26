@@ -97,11 +97,28 @@ def exportBack(tableHandler, connHandler, file, titles, sc, ac):
         row.insert(2, sc)
         row.insert(3, ac)
 
-    with open("outputTest.csv", 'w', newline='') as csvfile:
-        csvwriter = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
+    while(1):
+        choice = input("Export to previous file (1) or create new file (2) : ")
+        if choice == "1":
+            with open(file, 'w', newline='') as csvfile:
+                csvwriter = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
 
-        csvwriter.writerow(titles)
-        csvwriter.writerows(modifiedArrayStr)
+                csvwriter.writerow(titles)
+                csvwriter.writerows(modifiedArrayStr)
+            break
+
+        elif choice == "2":
+            newFilepath = input("Enter new file path : ") 
+            with open(newFilepath, 'w', newline='') as csvfile:
+                csvwriter = csv.writer(csvfile, quoting=csv.QUOTE_MINIMAL)
+
+                csvwriter.writerow(titles)
+                csvwriter.writerows(modifiedArrayStr)
+            break
+        else:
+            print("Please choose a valid option")
+            continue
+
 
 def userQuery(tableHandler, connHandler, titles):
     columnNames = list(tableHandler.columns.keys())[1:]
@@ -136,10 +153,10 @@ def userQuery(tableHandler, connHandler, titles):
                 continue
     elif choice == "2":
         val = input("Enter the exact transaction type : ")
-        output = connHandler.execute(sqlalchemy.text(f"SELECT * FROM Account WHERE \"Transaction Type\" = \"{val}\""))
+        output = connHandler.execute(sqlalchemy.text(f"SELECT * FROM Account WHERE \"Transaction Type\" = \'{val}\'"))
     elif choice == "3":
         val = input("Enter the exact description : ")
-        output = connHandler.execute(sqlalchemy.text(f"SELECT * FROM Account WHERE \"Description\" = \"{val}\""))
+        output = connHandler.execute(sqlalchemy.text(f"SELECT * FROM Account WHERE \"Description\" = \'{val}\'"))
     elif choice == "4":
         val = input("Enter the exact outgoing amount : ")
 

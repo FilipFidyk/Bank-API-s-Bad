@@ -36,8 +36,8 @@ def main():
         print("3. Add tuple")
         print("4. Remove Tuple")
         print("5. User Query")
-        print("5. Export to csv file")
-        print("6. Exit")
+        print("6. Export to csv file")
+        print("7. Exit")
         choice = input("Choose an option : ")
 
         
